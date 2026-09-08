@@ -50,6 +50,7 @@ model Villain {
   quirkDescription    String
   bio                 String
   imageUrl            String?
+  organization        String?
   bounty              Int
   dangerLevel         DangerLevel   @default(MODERATE)
   status              VillainStatus @default(AT_LARGE)

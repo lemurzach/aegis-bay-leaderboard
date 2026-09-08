@@ -12,7 +12,7 @@ export function DeleteVillainButton({ id, name }: { id: number; name: string }) 
           startTransition(() => deleteVillain(id));
         }
       }}
-      className="rounded-md border border-slate-700 px-3 py-1.5 text-sm text-slate-300 transition hover:border-red-500 hover:text-red-400"
+      className="rounded-md border border-zinc-700 px-3 py-1.5 text-sm text-zinc-300 transition hover:border-red-500 hover:text-red-400"
     >
       Delete
     </button>

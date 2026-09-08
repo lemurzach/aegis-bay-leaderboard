@@ -31,6 +31,11 @@ export const villainSchema = z.object({
     .union([z.url("Must be a valid URL"), z.literal("")])
     .optional()
     .transform((v) => (v ? v : undefined)),
+  organization: z
+    .string()
+    .trim()
+    .optional()
+    .transform((v) => (v ? v : undefined)),
   bounty: z.coerce.number().int().min(0, "Bounty can't be negative"),
   dangerLevel: z.enum(["LOW", "MODERATE", "HIGH", "EXTREME"]),
   status: z.enum(["AT_LARGE", "CAPTURED"]),

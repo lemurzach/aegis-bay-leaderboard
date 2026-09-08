@@ -16,6 +16,7 @@ function parseVillainForm(formData: FormData) {
     quirkDescription: formData.get("quirkDescription"),
     bio: formData.get("bio"),
     imageUrl: formData.get("imageUrl"),
+    organization: formData.get("organization"),
     bounty: formData.get("bounty"),
     dangerLevel: formData.get("dangerLevel"),
     status: formData.get("status"),

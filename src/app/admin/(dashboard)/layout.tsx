@@ -11,30 +11,31 @@ export default async function AdminDashboardLayout({
 
   return (
     <div className="min-h-screen">
-      <header className="border-b border-slate-800 bg-slate-900/60">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
+      <header className="border-b border-zinc-800 bg-zinc-950">
+        <div className="hero-stripe h-1.5 w-full" />
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4">
           <div>
-            <p className="text-xs uppercase tracking-widest text-amber-400">
-              Aegis Bay Command
+            <p className="text-xs font-bold uppercase tracking-widest text-red-500">
+              Aegis Bay
             </p>
-            <h1 className="text-lg font-bold text-slate-100">Admin Panel</h1>
+            <h1 className="font-display text-xl text-white">Command Center</h1>
           </div>
-          <nav className="flex items-center gap-4 text-sm font-medium">
+          <nav className="flex items-center gap-4 text-sm font-bold uppercase tracking-wide">
             <Link
               href="/admin/heroes"
-              className="text-slate-300 transition hover:text-amber-400"
+              className="text-zinc-300 transition hover:text-red-500"
             >
               Heroes
             </Link>
             <Link
               href="/admin/villains"
-              className="text-slate-300 transition hover:text-amber-400"
+              className="text-zinc-300 transition hover:text-red-500"
             >
               Bounties &amp; Villains
             </Link>
             <Link
               href="/"
-              className="text-slate-300 transition hover:text-amber-400"
+              className="text-zinc-300 transition hover:text-red-500"
             >
               View site
             </Link>

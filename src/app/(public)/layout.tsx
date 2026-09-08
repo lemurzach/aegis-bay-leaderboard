@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NavTabs } from "./nav-tabs";
 
 export default function PublicLayout({
   children,
@@ -7,36 +8,24 @@ export default function PublicLayout({
 }) {
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="border-b border-slate-800/80 bg-[#0a0e18]">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5">
+      <header className="border-b border-zinc-800 bg-zinc-950">
+        <div className="hero-stripe h-1.5 w-full" />
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-5">
           <Link href="/" className="group">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">
-              Aegis Bay
+            <p className="font-display text-2xl leading-none text-red-600">
+              AEGIS BAY
             </p>
-            <p className="text-lg font-bold text-slate-100 group-hover:text-amber-300">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400 group-hover:text-white">
               Hero Registry
             </p>
           </Link>
-          <nav className="flex items-center gap-1 rounded-full border border-slate-800 bg-slate-900/60 p-1 text-sm font-medium">
-            <Link
-              href="/"
-              className="rounded-full px-4 py-1.5 text-slate-300 transition hover:bg-slate-800 hover:text-amber-300"
-            >
-              Heroes
-            </Link>
-            <Link
-              href="/villains"
-              className="rounded-full px-4 py-1.5 text-slate-300 transition hover:bg-slate-800 hover:text-amber-300"
-            >
-              Bounties &amp; Villains
-            </Link>
-          </nav>
+          <NavTabs />
         </div>
       </header>
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10">
         {children}
       </main>
-      <footer className="border-t border-slate-800/80 py-6 text-center text-xs text-slate-600">
+      <footer className="border-t border-zinc-800 bg-zinc-950 py-6 text-center text-xs uppercase tracking-wide text-zinc-600">
         Aegis Bay Hero Public Safety Commission
       </footer>
     </div>

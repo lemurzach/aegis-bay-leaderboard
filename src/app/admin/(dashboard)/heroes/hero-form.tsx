@@ -58,10 +58,11 @@ export function HeroForm({
         </Field>
       </div>
 
-      <Field label="Agency / affiliation (optional)">
+      <Field label="Agency (optional)">
         <input
           name="agency"
           defaultValue={hero?.agency ?? ""}
+          placeholder="e.g. Aegis Bay Hero Agency"
           className={inputClass}
         />
       </Field>
@@ -109,7 +110,7 @@ export function HeroForm({
       <button
         type="submit"
         disabled={pending}
-        className="rounded-lg bg-amber-500 px-5 py-2 font-semibold text-slate-950 transition hover:bg-amber-400 disabled:opacity-60"
+        className="rounded-lg bg-red-600 px-5 py-2 font-bold uppercase tracking-wide text-white transition hover:bg-red-500 disabled:opacity-60"
       >
         {pending ? "Saving…" : hero ? "Save changes" : "Add hero"}
       </button>
@@ -120,7 +121,7 @@ export function HeroForm({
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-sm font-medium text-slate-300">
+      <span className="mb-1 block text-sm font-bold uppercase tracking-wide text-zinc-300">
         {label}
       </span>
       {children}
@@ -129,4 +130,4 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 
 const inputClass =
-  "w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 outline-none focus:border-amber-500";
+  "w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-zinc-100 outline-none focus:border-red-500";
