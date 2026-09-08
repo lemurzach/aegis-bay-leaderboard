@@ -63,6 +63,23 @@ model Villain {
   @@index([bounty])
 }
 
+model Npc {
+  id                Int      @id @default(autoincrement())
+  name              String
+  role              String
+  quirk             String?
+  quirkDescription  String?
+  bio               String
+  imageUrl          String?
+  location          String?
+  important         Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  notes             NpcNote[]
+
+  @@index([important])
+}
+
 model User {
   id           Int          @id @default(autoincrement())
   email        String       @unique
@@ -70,6 +87,7 @@ model User {
   createdAt    DateTime     @default(now())
   heroNotes    HeroNote[]
   villainNotes VillainNote[]
+  npcNotes     NpcNote[]
 }
 
 model HeroNote {
@@ -96,4 +114,17 @@ model VillainNote {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, villainId])
+}
+
+model NpcNote {
+  id        Int      @id @default(autoincrement())
+  content   String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  npcId     Int
+  npc       Npc      @relation(fields: [npcId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, npcId])
 }

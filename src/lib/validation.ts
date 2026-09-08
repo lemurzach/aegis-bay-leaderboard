@@ -48,6 +48,33 @@ export const villainSchema = z.object({
 
 export type VillainInput = z.infer<typeof villainSchema>;
 
+export const npcSchema = z.object({
+  name: z.string().trim().min(1, "Name is required"),
+  role: z.string().trim().min(1, "Role is required"),
+  quirk: z
+    .string()
+    .trim()
+    .optional()
+    .transform((v) => (v ? v : undefined)),
+  quirkDescription: z
+    .string()
+    .trim()
+    .optional()
+    .transform((v) => (v ? v : undefined)),
+  bio: z.string().trim().min(1, "Bio is required"),
+  imageUrl: z
+    .union([z.url("Must be a valid URL"), z.literal("")])
+    .optional()
+    .transform((v) => (v ? v : undefined)),
+  location: z
+    .string()
+    .trim()
+    .optional()
+    .transform((v) => (v ? v : undefined)),
+});
+
+export type NpcInput = z.infer<typeof npcSchema>;
+
 export const signupSchema = z.object({
   email: z.email("Enter a valid email address").trim().toLowerCase(),
   password: z.string().min(8, "Password must be at least 8 characters"),

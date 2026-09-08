@@ -50,3 +50,25 @@ export async function saveVillainNote(
   revalidatePath(`/villains/${villainId}`);
   return { success: true };
 }
+
+export async function saveNpcNote(
+  npcId: number,
+  _prevState: NoteState,
+  formData: FormData
+): Promise<NoteState> {
+  const user = await requireUser();
+
+  const parsed = noteSchema.safeParse({ content: formData.get("content") });
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? "Invalid input" };
+  }
+
+  await prisma.npcNote.upsert({
+    where: { userId_npcId: { userId: user.id, npcId } },
+    create: { userId: user.id, npcId, content: parsed.data.content },
+    update: { content: parsed.data.content },
+  });
+
+  revalidatePath(`/npcs/${npcId}`);
+  return { success: true };
+}

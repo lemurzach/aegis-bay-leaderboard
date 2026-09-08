@@ -28,6 +28,12 @@ export default async function AdminDashboardLayout({
               Heroes
             </Link>
             <Link
+              href="/admin/npcs"
+              className="text-zinc-300 transition hover:text-red-500"
+            >
+              NPCs
+            </Link>
+            <Link
               href="/admin/villains"
               className="text-zinc-300 transition hover:text-red-500"
             >
