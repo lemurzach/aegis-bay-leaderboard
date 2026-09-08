@@ -38,6 +38,7 @@ model Hero {
   status            HeroStatus @default(ACTIVE)
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
+  notes             HeroNote[]
 
   @@index([rank])
 }
@@ -57,6 +58,42 @@ model Villain {
   lastKnownLocation   String?
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt
+  notes               VillainNote[]
 
   @@index([bounty])
+}
+
+model User {
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
+  passwordHash String
+  createdAt    DateTime     @default(now())
+  heroNotes    HeroNote[]
+  villainNotes VillainNote[]
+}
+
+model HeroNote {
+  id        Int      @id @default(autoincrement())
+  content   String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  heroId    Int
+  hero      Hero     @relation(fields: [heroId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, heroId])
+}
+
+model VillainNote {
+  id        Int      @id @default(autoincrement())
+  content   String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  villainId Int
+  villain   Villain  @relation(fields: [villainId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, villainId])
 }

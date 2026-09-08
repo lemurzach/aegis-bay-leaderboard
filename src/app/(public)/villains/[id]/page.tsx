@@ -3,6 +3,9 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { DangerBadge, VillainStatusBadge } from "@/components/badges";
+import { PrivateNote } from "@/components/private-note";
+import { getCurrentUser } from "@/lib/user-dal";
+import { saveVillainNote } from "@/app/(public)/notes-actions";
 
 export default async function VillainDetailPage({
   params,
@@ -10,11 +13,19 @@ export default async function VillainDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const villainId = Number(id);
   const villain = await prisma.villain.findUnique({
-    where: { id: Number(id) },
+    where: { id: villainId },
   });
 
   if (!villain) notFound();
+
+  const user = await getCurrentUser();
+  const existingNote = user
+    ? await prisma.villainNote.findUnique({
+        where: { userId_villainId: { userId: user.id, villainId } },
+      })
+    : null;
 
   return (
     <div className="max-w-3xl">
@@ -88,6 +99,20 @@ export default async function VillainDetailPage({
           {villain.bio}
         </p>
       </div>
+
+      {user ? (
+        <PrivateNote
+          initialContent={existingNote?.content ?? ""}
+          action={saveVillainNote.bind(null, villain.id)}
+        />
+      ) : (
+        <div className="mt-6 rounded-2xl border border-dashed border-zinc-800 p-6 text-center text-sm text-zinc-500">
+          <Link href="/login" className="font-bold text-red-500 hover:text-red-400">
+            Log in
+          </Link>{" "}
+          to leave a private note about this villain.
+        </div>
+      )}
     </div>
   );
 }

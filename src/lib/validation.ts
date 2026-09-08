@@ -47,3 +47,17 @@ export const villainSchema = z.object({
 });
 
 export type VillainInput = z.infer<typeof villainSchema>;
+
+export const signupSchema = z.object({
+  email: z.email("Enter a valid email address").trim().toLowerCase(),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+export const loginSchema = z.object({
+  email: z.email("Enter a valid email address").trim().toLowerCase(),
+  password: z.string().min(1, "Enter your password"),
+});
+
+export const noteSchema = z.object({
+  content: z.string().trim().min(1, "Note can't be empty").max(4000, "Note is too long"),
+});

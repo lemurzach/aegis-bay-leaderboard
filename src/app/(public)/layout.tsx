@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { NavTabs } from "./nav-tabs";
+import { AuthStatus } from "./auth-status";
 
 export default function PublicLayout({
   children,
@@ -19,7 +20,10 @@ export default function PublicLayout({
               Hero Registry
             </p>
           </Link>
-          <NavTabs />
+          <div className="flex items-center gap-6">
+            <NavTabs />
+            <AuthStatus />
+          </div>
         </div>
       </header>
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10">

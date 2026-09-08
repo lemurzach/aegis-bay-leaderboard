@@ -3,6 +3,9 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { HeroStatusBadge } from "@/components/badges";
+import { PrivateNote } from "@/components/private-note";
+import { getCurrentUser } from "@/lib/user-dal";
+import { saveHeroNote } from "@/app/(public)/notes-actions";
 
 export default async function HeroDetailPage({
   params,
@@ -10,9 +13,17 @@ export default async function HeroDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const hero = await prisma.hero.findUnique({ where: { id: Number(id) } });
+  const heroId = Number(id);
+  const hero = await prisma.hero.findUnique({ where: { id: heroId } });
 
   if (!hero) notFound();
+
+  const user = await getCurrentUser();
+  const existingNote = user
+    ? await prisma.heroNote.findUnique({
+        where: { userId_heroId: { userId: user.id, heroId } },
+      })
+    : null;
 
   return (
     <div className="max-w-3xl">
@@ -78,6 +89,20 @@ export default async function HeroDetailPage({
           {hero.bio}
         </p>
       </div>
+
+      {user ? (
+        <PrivateNote
+          initialContent={existingNote?.content ?? ""}
+          action={saveHeroNote.bind(null, hero.id)}
+        />
+      ) : (
+        <div className="mt-6 rounded-2xl border border-dashed border-zinc-800 p-6 text-center text-sm text-zinc-500">
+          <Link href="/login" className="font-bold text-red-500 hover:text-red-400">
+            Log in
+          </Link>{" "}
+          to leave a private note about this hero.
+        </div>
+      )}
     </div>
   );
 }
