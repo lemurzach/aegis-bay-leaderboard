@@ -40,6 +40,12 @@ export default async function AdminDashboardLayout({
               Bounties &amp; Villains
             </Link>
             <Link
+              href="/admin/users"
+              className="text-zinc-300 transition hover:text-red-500"
+            >
+              Users
+            </Link>
+            <Link
               href="/"
               className="text-zinc-300 transition hover:text-red-500"
             >
